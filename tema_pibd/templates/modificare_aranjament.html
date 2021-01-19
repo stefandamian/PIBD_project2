@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid row">
+    <div class = "page-header">
+      <h3>{{title}}</h3>
+    </div>
+    <div class="col-md-5">
+      <form role="form" method="post"> {% csrf_token %}
+        <div class="form-group" style="margin-top: 8px;">
+          <label for="idelev">Elev</label>
+          <select class="selectpicker" name = "idelev">
+              {% for elev in elevi %}
+              {% if elev.idelev != idelev %}
+            <option value = "{{elev.idelev}}">{{elev.nume}} {{elev.prenume}}</option>
+              {% else %}
+            <option value = "{{elev.idelev}}" selected>{{elev.nume}} {{elev.prenume}}</option>
+              {% endif %}
+              {% endfor %}
+          </select>
+        </div>
+        <div class="form-group" style="margin-top: 8px;">
+          <label for="iddisciplina">Disciplina</label>
+          <select class="selectpicker" name = "iddisciplina">
+              {% for disciplina in discipline %}
+              {% if disciplina.iddisciplina != iddisciplina %}
+            <option value = "{{disciplina.iddisciplina}}">{{disciplina.nume}}</option>
+              {% else %}
+            <option value = "{{disciplina.iddisciplina}}" selected>{{disciplina.nume}}</option>
+              {% endif %}
+              {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top: 8px;">Submit</button>
+      </form>
+    </div>
+    {% if fail %}
+    <div class="col-md-4">
+        <h3>Aranjamentul adaugat anterior exista deja in lista de aranjamente</h3>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

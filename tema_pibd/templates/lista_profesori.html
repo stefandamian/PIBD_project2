@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load index %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header margin-25">
+				<h1>Profesori</h1>
+			</div>
+			<table class="table table-bordered table-sm">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nume</th>
+						<th>Prenume</th>
+						<th>Numar discipline</th>
+					</tr>
+				</thead>
+				<tbody>
+                {% for profesor in profesori %}
+				    {% if forloop.counter0|divisibleby:2 %}
+					<tr class="table-active">
+                    {% else %}
+					<tr>
+                    {% endif %}
+						<td>{{forloop.counter}}</td>
+						<td>{{profesor.nume}}</td>
+						<td>{{profesor.prenume}}</td>
+						<td>{{nr_discipline|index:forloop.counter0}}</td>
+						<td><a href="/profesor/{{profesor.idprofesor}}" class="btn btn-primary float_right">Vizualizare</a></td>
+					</tr>
+                {% endfor %}
+				</tbody>
+			</table>
+			<a class="btn btn-primary float_right" style="margin-bottom: 10px;" href="/profesor/add">Adauga Profesori</a>
+		</div>
+	</div>
+</div>
+{% endblock %}

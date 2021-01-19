@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="page-header margin-25">
+				<h1>Elevi</h1>
+			</div>
+			<table class="table table-bordered table-sm">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Nume</th>
+						<th>Prenume</th>
+						<th>An</th>
+					</tr>
+				</thead>
+				<tbody>
+                {% for elev in elevi %}
+				    {% if forloop.counter0|divisibleby:2 %}
+					<tr class="table-active">
+                    {% else %}
+					<tr>
+                    {% endif %}
+						<td>{{forloop.counter}}</td>
+						<td>{{elev.nume}}</td>
+						<td>{{elev.prenume}}</td>
+						<td>{{elev.an}}</td>
+						<td><a href="/elev/{{elev.idelev}}" class="btn btn-primary float_right">Vizualizare</a></td>
+					</tr>
+                {% endfor %}
+				</tbody>
+			</table>
+			<a class="btn btn-primary float_right" style="margin-bottom: 10px;" href="/elev/add">Adauga Elev</a>
+		</div>
+	</div>
+</div>
+{% endblock %}

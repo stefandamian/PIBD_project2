@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load index %}
+
+<div class="container-fluid col-md-12">
+    <div class="page_header">
+        <h1>Vizualizare Profesor</h1>
+    </div>
+    <div class="row" style="margin-top: 30px;">
+        <div class = "col-md-5 float_left">
+            <h3>Nume: {{profesor.nume}}</h3>
+            <h3>Prenume: {{profesor.prenume}}</h3>
+            <a class="btn btn-primary" href="/profesor/{{profesor.idprofesor}}/modify">Modificare profesor</a>
+        </div>
+        <div class = "col-md-7 float_right">
+            <table class="table table-bordered table-sm">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Disciplina</th>
+                        <th>Numar elevi</th>
+                    </tr>
+                </thead>
+                <tbody>
+				{% for disciplina in discipline %}
+                    {% if forloop.counter0|divisibleby:2 %}
+                    <tr class="table-active">
+                    {% else %}
+                    <tr>
+                    {% endif %}
+					    <td>{{forloop.counter}}</td>
+					    <td>{{disciplina.nume}}</td>
+					    <td>{{nr_elevi|index:forloop.counter0}}</td>
+					    <td>
+					        <a href="/disciplina/{{disciplina.iddisciplina}}" class="btn btn-primary float_right">Vizualizare Disciplina</a>
+					    </td>
+					</tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <a href="/profesor/{{profesor.idprofesor}}/add_disciplina" class="btn btn-primary float_right">Adaugare Disciplina</a>
+            <a href="/profesor/{{profesor.idprofesor}}/del_disciplina" class="btn btn-primary float_right">Elimina Disciplina</a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

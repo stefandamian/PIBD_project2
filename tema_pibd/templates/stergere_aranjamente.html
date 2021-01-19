@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% load index %}
+<div class="container-fluid row col-md-12">
+  <div class="col-md-4">
+	  <div class="page-header" style="margin-top: 8px;">
+	    <h1>{{title}}</h1>
+	  </div>
+    <div class="col-md-4">
+		  <form class="form-group" method="post" style="margin-top: 8px;"> {% csrf_token %}
+		     <select multiple class="selectpicker" NAME="iddisciplina_idelev" style="margin-top: 8px;" size="20px">
+                 {% for aranjament in aranjamente %}
+		         <option VALUE="{{aranjament|index:0}}_{{aranjament|index:1}}">{{discipline|index:forloop.counter0|nume}}, elev: {{elevi|index:forloop.counter0|nume}} {{elevi|index:forloop.counter0|prenume}}</option>
+                 {% endfor %}
+		     </select>
+		     <div style="margin-top: 8px;"><input class="btn btn-primary" type="submit" value="Sterge Aranjamente" /></div>
+		  </form>
+	  </div>
+  </div>
+</div>
+{% endblock %}

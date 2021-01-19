@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container-fluid col-md-12 row">
+    <div class="col-md-7">
+        <div class="page-header"><h1>{{title}}</h1></div>
+        <h3>Nume: {{elev.nume}}</h3>
+        <h3>Prenume: {{elev.prenume}}</h3>
+        <h3>An: {{elev.an}}</h3>
+    </div>
+    {% if discipline_disponibile %}
+    <div class="col-md-2">
+        <form class="form-group" method="POST"> {% csrf_token %}
+            <select multiple class="selectpicker" NAME="iddisciplina">
+        {% for disciplina in discipline_disponibile %}
+                <option value="{{disciplina.iddisciplina}}">{{disciplina.nume}}, prof: {{disciplina.profesor.nume}} {{disciplina.profesor.prenume}}</option>
+        {% endfor %}
+            </select>
+            <div style="margin-top: 8px;"><input class="btn btn-primary" type="submit" value="{% if add %}Adauga{% else %}Sterge{% endif %} Discipline" {% if not add %} onclick="return confirm('Sunteti sigur ca vreti sa stergeti aranjamentul?')"{% endif %}/></div>
+        </form>
+    </div>
+    {% else %}
+    <div class="col-md-4">
+        <h4>{% if add %}Elevul este inrolat la toate disciplinele{% else %}Elevul nu este inrolat la nici o disciplina{% endif %}</h4>
+        <a class="btn btn-primary" href="/elev/{{elev.idelev}}" style="margin-top: 8px;">Inapoi la elev</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
